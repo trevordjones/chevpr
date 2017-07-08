@@ -12,29 +12,27 @@
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <%= if @current_user do %>
-              <li><%= link "Sign out", to: session_path(@conn, :delete, @current_user), method: "delete" %></li>
-            <% else %>
-              <li><%= link "Register", to: user_path(@conn, :new) %></li>
-              <li><%= link "Sign in", to: session_path(@conn, :new) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+    <header class="header">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <%= if @current_user do %>
+                <li><%= link "Sign out", to: session_path(@conn, :delete, @current_user), method: "delete" %></li>
+              <% else %>
+                <li><%= link "Register", to: user_path(@conn, :new) %></li>
+                <li><%= link "Sign in", to: session_path(@conn, :new) %></li>
+              <% end %>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </header>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <main role="main" class="">
+      <%= render @view_module, @view_template, assigns %>
+    </main>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-
-    </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
