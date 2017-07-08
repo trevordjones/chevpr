@@ -1,0 +1,5 @@
+<%= if @changeset.action do %>
+  <div class="alert alert-danger">
+    <p>There are some errors</p>
+  </div>
+<% end %>
