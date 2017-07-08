@@ -9,5 +9,9 @@
     <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
     <%= error_tag f, :password %>
   </div>
+  <div class="form-group">
+    <%= password_input f, :password_confirmation, placeholder: "Password Confirmation", class: "form-control" %>
+    <%= error_tag f, :password_confirmation %>
+  </div>
   <%= submit "Sign Up", class: "btn btn-primary" %>
 <% end %>

@@ -7,6 +7,7 @@ defmodule Chevpr.User do
     field :last_name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     field :sign_in_count, :integer
 
     timestamps()
@@ -30,6 +31,7 @@ defmodule Chevpr.User do
     |> changeset(params)
     |> cast(params, ~w(password)a)
     |> validate_length(:password, min: 8)
+    |> validate_confirmation(:password)
     |> hash_password
   end
 
