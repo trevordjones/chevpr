@@ -4,6 +4,9 @@ defmodule Chevpr.Auth do
   alias Chevpr.Repo
 
   def login(conn, user) do
+    User.changeset(user, %{sign_in_count: user.sign_in_count + 1})
+    |> Repo.update
+
     conn
     |> Guardian.Plug.sign_in(user)
   end

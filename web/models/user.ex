@@ -8,13 +8,14 @@ defmodule Chevpr.User do
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
-    field :sign_in_count, :integer
+    field :sign_in_count, :integer, default: 0
 
     timestamps()
   end
 
   @required_fields ~w(email)a
-  @optional_fields ~w(first_name last_name)a
+  @optional_fields ~w(first_name last_name sign_in_count)a
+  @registration_fields ~w(password password_confirmation)a
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -29,7 +30,8 @@ defmodule Chevpr.User do
   def registration_changeset(struct, params) do
     struct
     |> changeset(params)
-    |> cast(params, ~w(password)a)
+    |> cast(params, @registration_fields)
+    |> validate_required(@registration_fields)
     |> validate_length(:password, min: 8)
     |> validate_confirmation(:password)
     |> hash_password
