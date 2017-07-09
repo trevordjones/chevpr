@@ -1,1 +1,14 @@
-Profile page
+<div id="profile">
+  <div class="col-sm-3">
+    <div id="profile-avatar">
+      <img src="<%= Chevpr.AvatarUploader.url({@user.avatar, @user}) %>" alt="">
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <ul class="list-unstyled">
+      <li><%= full_name(@user) %></li>
+      <li><%= @user.email %></li>
+      <li><%# @user.username %></li>
+    </ul>
+  </div>
+</div>

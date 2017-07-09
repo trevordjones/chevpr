@@ -1,10 +1,13 @@
 defmodule Chevpr.User do
   use Chevpr.Web, :model
+  use Arc.Ecto.Schema
 
   schema "users" do
     field :email, :string
-    field :first_name, :string
-    field :last_name, :string
+    field :first_name, :string, default: ""
+    field :last_name, :string, default: ""
+    field :username, :string
+    field :avatar, Chevpr.AvatarUploader.Type
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
@@ -23,6 +26,7 @@ defmodule Chevpr.User do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields ++ @optional_fields)
+    |> cast_attachments(params, [:avatar])
     |> validate_required(@required_fields)
     |> unique_constraint(:email)
   end

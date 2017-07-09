@@ -33,7 +33,7 @@ defmodule Chevpr.Router do
     scope "/" do
       pipe_through :login_required
 
-      resources "/users", UserController, only: ~w(show)a
+      resources "/users", UserController, only: ~w(show edit update)a
     end
   end
 

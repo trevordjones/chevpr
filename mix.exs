@@ -19,7 +19,7 @@ defmodule Chevpr.Mixfile do
   def application do
     [mod: {Chevpr, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :arc_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +39,9 @@ defmodule Chevpr.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
-     {:guardian, "~> 0.14"}]
+     {:guardian, "~> 0.14"},
+     {:arc, "~> 0.8.0"},
+     {:arc_ecto, "~> 0.7.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
