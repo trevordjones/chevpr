@@ -40,6 +40,6 @@
       <%= password_input f, :password_confirmation, placeholder: "Password Confirmation", class: "form-control" %>
       <%= error_tag f, :password_confirmation %>
     </div>
-    <%= submit "Sign Up", class: "btn btn-primary" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   <% end %>
 </div>

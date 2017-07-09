@@ -1,0 +1,6 @@
+<%= if @message do %>
+  <div class="text-center alert alert-<%= @class %> alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p><%= @message %></p>
+  </div>
+<% end %>

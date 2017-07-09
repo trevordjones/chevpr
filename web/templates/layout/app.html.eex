@@ -31,6 +31,7 @@
         </div><!-- /.container-fluid -->
       </nav>
     </header>
+    <%= display_alert(@conn) %>
 
     <main role="main" class="">
       <%= render @view_module, @view_template, assigns %>

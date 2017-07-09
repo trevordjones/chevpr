@@ -2,7 +2,7 @@ defmodule Chevpr.UserController do
   use Chevpr.Web, :controller
   alias Chevpr.User
 
-  plug :scrub_params, "user" when action in ~w(create)a
+  plug :scrub_params, "user" when action in ~w(create update)a
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
@@ -39,12 +39,17 @@ defmodule Chevpr.UserController do
   end
 
   def update(conn, %{"user" => user_params}, current_user) do
-    changeset = User.changeset(current_user, user_params)
+    changeset =
+      if user_params["password"] do
+        User.registration_changeset(current_user, user_params)
+      else
+        User.changeset(current_user, user_params)
+      end
 
     case Repo.update(changeset) do
       {:ok, _user} ->
         conn
-        |> put_flash(:info, "Changes saved!")
+        |> put_flash(:success, "Changes saved!")
         |> redirect(to: user_path(conn, :edit, current_user))
       {:error, changeset} ->
         render(conn, "edit.html", changeset: changeset)
