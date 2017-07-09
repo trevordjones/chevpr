@@ -12,12 +12,13 @@ defmodule Chevpr.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :sign_in_count, :integer, default: 0
+    many_to_many :channels, Chevpr.Channel, join_through: "user_channels"
 
     timestamps()
   end
 
   @required_fields ~w(email)a
-  @optional_fields ~w(first_name last_name sign_in_count)a
+  @optional_fields ~w(first_name last_name username sign_in_count)a
   @registration_fields ~w(password password_confirmation)a
 
   @doc """
