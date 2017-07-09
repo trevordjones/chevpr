@@ -18,7 +18,10 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
               <%= if @current_user do %>
-                <li><%= link "Sign out", to: session_path(@conn, :delete, @current_user), method: "delete" %></li>
+                <li><%= link "Profile", to: user_path(@conn, :show, @current_user) %></li>
+                <li><%= link "Sign out", to: session_path(@conn, :delete, @current_user),
+                                         method: "delete", form: [class: "navbar-form"],
+                                         class: "btn btn-link" %></li>
               <% else %>
                 <li><%= link "Register", to: user_path(@conn, :new) %></li>
                 <li><%= link "Sign in", to: session_path(@conn, :new) %></li>

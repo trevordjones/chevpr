@@ -6,3 +6,10 @@
   width: 780px;
   margin: auto;
 }
+
+#profile-avatar {
+  img {
+    border: 3px solid $gray;
+    border-radius: 5px;
+  }
+}
