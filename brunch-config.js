@@ -57,9 +57,17 @@ exports.config = {
     },
     sass: {
       options: {
-        includePaths: ["node_modules/bootstrap-sass/assets/stylesheets"],
+        includePaths: [
+          "node_modules/bootstrap-sass/assets/stylesheets",
+          "node_modules/font-awesome/scss"
+        ],
         precision: 8
       }
+    },
+    copycat: {
+      "fonts": [
+        "node_modules/font-awesome/fonts"
+      ]
     }
   },
 
@@ -74,7 +82,8 @@ exports.config = {
     globals: {
       $: 'jquery',
       jQuery: 'jquery',
-      bootstrap: 'bootstrap-sass'
+      bootstrap: 'bootstrap-sass',
+      Vue: 'vue/dist/vue.common.js'
     }
   }
 };

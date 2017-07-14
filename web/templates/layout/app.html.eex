@@ -33,7 +33,7 @@
     </header>
     <%= display_alert(@conn) %>
 
-    <main role="main" class="">
+    <main role="main" class="container">
       <%= render @view_module, @view_template, assigns %>
     </main>
 

@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <%= link "Edit", to: user_path(@conn, :edit, @current_user), class: "pull-left" %>
   </div>
-  <div class="col-sm-2">
+  <div class="col-sm-3">
     <div id="profile-avatar">
       <img src="<%= Chevpr.AvatarUploader.url({@user.avatar, @user}) %>" width="200px">
     </div>
@@ -11,7 +11,7 @@
     <ul class="list-unstyled">
       <li><%= full_name(@user) %></li>
       <li><%= @user.email %></li>
-      <li><%# @user.username %></li>
+      <li><%= @user.username %></li>
     </ul>
   </div>
 </div>

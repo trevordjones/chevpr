@@ -1,2 +1,2 @@
 import Ecto.Query
-alias Chevpr.{Repo, User}
+alias Chevpr.{Repo, User, Channel, UserChannel}
