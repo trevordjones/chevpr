@@ -3,9 +3,17 @@ defmodule Chevpr.Channel do
 
   schema "channels" do
     field :name, :string
-    many_to_many :users, Chevpr.User, join_through: "user_channels"
+    many_to_many :users, Chevpr.User, join_through: Chevpr.UserChannel
 
     timestamps()
+  end
+
+  def ordered(query) do
+    from c in query, order_by: [desc: c.inserted_at]
+  end
+
+  def by_owner(user) do
+    assoc(user, :channels)
   end
 
   @doc """

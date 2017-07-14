@@ -12,7 +12,7 @@ defmodule Chevpr.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :sign_in_count, :integer, default: 0
-    many_to_many :channels, Chevpr.Channel, join_through: "user_channels"
+    many_to_many :channels, Chevpr.Channel, join_through: Chevpr.UserChannel
 
     timestamps()
   end

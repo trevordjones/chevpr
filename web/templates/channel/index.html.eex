@@ -1,0 +1,4 @@
+<div id="channels">
+  <meta name="csrf" content="<%= Plug.CSRFProtection.get_csrf_token() %>">
+  <new string-channels="<%= to_json(@channels) %>"></new>
+</div>
