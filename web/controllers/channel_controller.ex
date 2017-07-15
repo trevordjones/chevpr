@@ -15,6 +15,11 @@ defmodule Chevpr.ChannelController do
     render(conn, "index.html", channels: channels)
   end
 
+  def show(conn, %{"id" => id}, _current_user) do
+    channel = Repo.get(Channel, id)
+    render(conn, "show.html", channel: channel)
+  end
+
   def create(conn, %{"channel" => channel_params}, current_user) do
     changeset = Channel.changeset(%Channel{}, channel_params)
 

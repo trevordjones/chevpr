@@ -34,7 +34,7 @@ defmodule Chevpr.Router do
       pipe_through :login_required
 
       resources "/users", UserController, only: ~w(show edit update)a
-      resources "/channels", ChannelController, only: ~w(index create)a
+      resources "/channels", ChannelController, only: ~w(show index create)a
     end
   end
 
