@@ -4,6 +4,7 @@ defmodule Chevpr.Channel do
   schema "channels" do
     field :name, :string
     many_to_many :users, Chevpr.User, join_through: Chevpr.UserChannel
+    has_many :messages, Chevpr.Message
 
     timestamps()
   end
