@@ -14,8 +14,6 @@ defmodule Chevpr.ChannelView do
   end
 
   def render_json(channel) do
-    IO.puts "AAAAAAAHHHHH"
-    IO.inspect channel
     %{
       id: channel.id,
       name: channel.name

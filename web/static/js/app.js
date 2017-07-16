@@ -20,9 +20,10 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
-import New from './channels/new.vue'
+import NewChannel from './channels/new.vue'
+import NewMessage from './messages/new.vue'
 
 new Vue({
-  el: '#channels',
-  components: { New }
+  el: '#vue-container',
+  components: { NewChannel, NewMessage }
 });

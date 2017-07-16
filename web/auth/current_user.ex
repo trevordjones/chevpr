@@ -6,6 +6,9 @@ defmodule Chevpr.CurrentUser do
 
   def call(conn, _opts) do
     current_user = current_resource(conn)
-    assign(conn, :current_user, current_user)
+    token = Phoenix.Token.sign(conn, "user socket", current_user.id)
+    conn
+    |> assign(:current_user, current_user)
+    |> assign(:user_token, token)
   end
 end

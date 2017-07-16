@@ -3,12 +3,9 @@
     <h1><%= @channel.name %></h1>
   </div>
   <div class="col-sm-10">
-    <div class="messages">
-
-    </div>
-    <div class="message-input">
-      <input type="text" class="form-control">
-    </div>
-
+    <new-message channel-id="<%= @channel.id %>"
+                 csrf="<%= Plug.CSRFProtection.get_csrf_token() %>"
+                 user-token="<%= @user_token %>">
+    </new-message>
   </div>
 </div>
