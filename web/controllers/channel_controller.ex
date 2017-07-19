@@ -1,6 +1,6 @@
 defmodule Chevpr.ChannelController do
   use Chevpr.Web, :controller
-  alias Chevpr.Channel
+  alias Chevpr.{Channel, Message}
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
@@ -17,7 +17,10 @@ defmodule Chevpr.ChannelController do
 
   def show(conn, %{"id" => id}, _current_user) do
     channel = Repo.get(Channel, id)
-    render(conn, "show.html", channel: channel)
+    messages =
+      Message.channel_messages(channel)
+      |> Repo.all
+    render(conn, "show.html", channel: channel, messages: messages)
   end
 
   def create(conn, %{"channel" => channel_params}, current_user) do

@@ -1,6 +1,10 @@
 <template lang="html">
   <div>
     <div class="messages">
+      <div class="col-sm-12" v-for="message in this.messages">
+        <h4>{{message.email}}</h4>
+        <p v-for="m in message.messages">{{m.text }}</p>
+      </div>
     </div>
     <div class="message-input">
       <input type="text" class="form-control" v-on:keyup.enter="postMessage" v-model="message">
@@ -15,13 +19,15 @@ export default {
   data() {
     return {
       channel: socket.channel(`channels:${this.channelId}`),
-      message: ""
+      message: "",
+      messages: JSON.parse(this.stringMessages)
     }
   },
   props: {
     channelId: String,
     csrf: String,
-    userToken: String
+    userToken: String,
+    stringMessages: String
   },
   methods: {
     init() {
@@ -30,7 +36,6 @@ export default {
       this.channel.join()
         .receive("ok", resp => console.log("joined!"))
         .receive("error", resp => console.log("failed"))
-      this.channel.on("ping", ({count}) => console.log("PING", count) )
       this.receiveMessage()
     },
     postMessage() {
@@ -41,7 +46,12 @@ export default {
     },
     receiveMessage() {
       this.channel.on("new_message", (resp) => {
-        console.log(resp)
+        let prev = this.messages[this.messages.length - 1]
+        if (prev.email == resp.user.email) {
+          prev.messages.push(resp)
+        } else {
+          this.messages.push({email: resp.user.email, messages: [resp]})
+        }
       })
     }
   },

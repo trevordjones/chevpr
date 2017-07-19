@@ -1,5 +1,6 @@
 defmodule Chevpr.ChannelView do
   use Chevpr.Web, :view
+  alias Chevpr.MessageView
 
   def render("create.json", %{channel: channel}) do
     %{
