@@ -36,7 +36,7 @@ defmodule Chevpr.ChannelController do
         render(conn, "create.json", channel: channel)
       {:error, changeset} ->
         put_status(conn, 422)
-        |> render(ErrorView, "422.json", errors: changeset.errors)
+        |> render(Chevpr.ErrorView, "422.json", errors: changeset.errors)
     end
   end
 end

@@ -22,6 +22,10 @@ defmodule Chevpr.User do
   @optional_fields ~w(first_name last_name username sign_in_count)a
   @registration_fields ~w(password password_confirmation)a
 
+  def find_by_email(email) do
+    from u in __MODULE__, where: u.email == ^email
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """

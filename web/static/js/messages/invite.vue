@@ -1,0 +1,63 @@
+<template lang="html">
+  <div>
+    <span class="fa fa-plus fa-success" v-if="!showInvite" v-on:click="displayInput"></span>
+    <div v-if="showInvite">
+      <input type="text" class="form-control" v-if="showInvite" v-model="email">
+      <button class="btn btn-xs btn-info" v-on:click="invite">Invite</button>
+    </div>
+    <div class="alert invite-alert" v-bind:class="{ 'alert-success': isSuccess, 'alert-danger': isError }"
+                       v-if="isSuccess || isError">
+      {{this.message}}
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      showInvite: false,
+      email: '',
+      message: 'what',
+      isSuccess: false,
+      isError: false
+    }
+  },
+  props: {
+    channelId: String,
+    csrf: String
+  },
+  methods: {
+    displayInput() {
+      this.showInvite = !this.showInvite
+    },
+    invite() {
+      let self = this;
+      $.ajax({
+        url: `/invite/${this.channelId}`,
+        method: "PUT",
+        headers: { "X-CSRF-TOKEN": this.csrf },
+        data: {invite: {email: this.email }},
+        success: function(response) {
+          self.email = ''
+          self.showInvite = false
+          self.message = response.message
+          self.isSuccess = true
+          self.isError = false
+        },
+        error: function(response) {
+          self.message = response.responseJSON.message
+          self.isSuccess = false
+          self.isError = true
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style lang="css">
+  .invite-alert {
+    margin: 20px 0;
+  }
+</style>

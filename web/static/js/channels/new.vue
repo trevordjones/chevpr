@@ -10,7 +10,7 @@
         <p class="error-text" v-if="isInvalid">Please fill out a name</p>
         <ul class="list-unstyled">
           <li v-for="channel in channels">
-            <h4>{{ channel.name }}</h4>
+            <a v-bind:href="`channels/${channel.id}`"><h4>{{ channel.name }}</h4></a>
           </li>
         </ul>
       </div>

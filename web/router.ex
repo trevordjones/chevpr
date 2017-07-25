@@ -35,6 +35,7 @@ defmodule Chevpr.Router do
 
       resources "/users", UserController, only: ~w(show edit update)a
       resources "/channels", ChannelController, only: ~w(show index create)a
+      resources "/invite", InviteController, only: ~w(update)a
     end
   end
 

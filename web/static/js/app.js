@@ -22,8 +22,9 @@ import "phoenix_html"
 
 import NewChannel from './channels/new.vue'
 import NewMessage from './messages/new.vue'
+import Invite from './messages/invite.vue'
 
 new Vue({
   el: '#vue-container',
-  components: { NewChannel, NewMessage }
+  components: { NewChannel, NewMessage, Invite }
 });

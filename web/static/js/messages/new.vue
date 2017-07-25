@@ -2,7 +2,7 @@
   <div>
     <div class="messages">
       <div class="col-sm-12" v-for="message in this.messages">
-        <h4>{{message.email}}</h4>
+        <h5>{{message.email}}</h5>
         <p v-for="m in message.messages">{{m.text }}</p>
       </div>
     </div>
@@ -47,10 +47,10 @@ export default {
     receiveMessage() {
       this.channel.on("new_message", (resp) => {
         let prev = this.messages[this.messages.length - 1]
-        if (prev.email == resp.user.email) {
-          prev.messages.push(resp)
-        } else {
+        if (this.messages.length === 0 || prev.email !== resp.user.email) {
           this.messages.push({email: resp.user.email, messages: [resp]})
+        } else {
+          prev.messages.push(resp)
         }
       })
     }
