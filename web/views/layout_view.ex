@@ -1,7 +1,7 @@
 defmodule Chevpr.LayoutView do
   use Chevpr.Web, :view
 
-  def display_alert(conn), do: display_alert(~w(info danger success)a, conn)
+  def display_alert(conn), do: display_alert(~w(info danger success warning)a, conn)
 
   def display_alert([h | t], conn) do
     get_flash(conn, h)

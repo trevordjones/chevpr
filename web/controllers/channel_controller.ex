@@ -1,6 +1,6 @@
 defmodule Chevpr.ChannelController do
   use Chevpr.Web, :controller
-  alias Chevpr.{Channel, Message}
+  alias Chevpr.{Channel, Message, UserCan}
 
   def action(conn, _) do
     apply(__MODULE__, action_name(conn),
@@ -15,12 +15,18 @@ defmodule Chevpr.ChannelController do
     render(conn, "index.html", channels: channels)
   end
 
-  def show(conn, %{"id" => id}, _current_user) do
+  def show(conn, %{"id" => id}, current_user) do
     channel = Repo.get(Channel, id) |> Repo.preload(:users)
-    messages =
-      Message.channel_messages(channel)
-      |> Repo.all
-    render(conn, "show.html", channel: channel, messages: messages)
+    if UserCan.can?(current_user, channel.users) do
+      messages =
+        Message.channel_messages(channel)
+        |> Repo.all
+      render(conn, "show.html", channel: channel, messages: messages)
+    else
+      conn
+      |> put_flash(:warning, "You must first be invited to join that channel")
+      |> redirect(to: channel_path(conn, :index))
+    end
   end
 
   def create(conn, %{"channel" => channel_params}, current_user) do
