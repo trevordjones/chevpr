@@ -16,7 +16,7 @@ defmodule Chevpr.ChannelController do
   end
 
   def show(conn, %{"id" => id}, _current_user) do
-    channel = Repo.get(Channel, id)
+    channel = Repo.get(Channel, id) |> Repo.preload(:users)
     messages =
       Message.channel_messages(channel)
       |> Repo.all

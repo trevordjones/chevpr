@@ -31,6 +31,13 @@ export default {
     displayInput() {
       this.showInvite = !this.showInvite
     },
+    closeAlert() {
+      setTimeout(() => {
+        this.message = ''
+        this.isSuccess = false
+        this.isError = false
+      }, 3000)
+    },
     invite() {
       let self = this;
       $.ajax({
@@ -44,11 +51,13 @@ export default {
           self.message = response.message
           self.isSuccess = true
           self.isError = false
+          self.closeAlert()
         },
         error: function(response) {
           self.message = response.responseJSON.message
           self.isSuccess = false
           self.isError = true
+          self.closeAlert()
         }
       })
     }
