@@ -8,7 +8,8 @@ defmodule Chevpr.InviteController do
       changeset = UserChannel.changeset(%UserChannel{}, %{user_id: user.id, channel_id: id})
       case Repo.insert(changeset) do
         {:ok, _} ->
-          render(conn, "success.json", email: email)
+          name = user.username || user.email
+          render(conn, "success.json", name: name)
         {:error, changeset} ->
           put_status(conn, 422)
           |> render(Chevpr.ErrorView, "422.json", errors: changeset.errors)

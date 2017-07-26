@@ -9,6 +9,11 @@
                        v-if="isSuccess || isError">
       {{this.message}}
     </div>
+    <ul class="list-unstyled names-list">
+      <li v-for="name in names">
+        {{name}}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -20,7 +25,8 @@ export default {
       email: '',
       message: 'what',
       isSuccess: false,
-      isError: false
+      isError: false,
+      names: []
     }
   },
   props: {
@@ -49,6 +55,7 @@ export default {
           self.email = ''
           self.showInvite = false
           self.message = response.message
+          self.names.push(response.name)
           self.isSuccess = true
           self.isError = false
           self.closeAlert()
@@ -68,5 +75,9 @@ export default {
 <style lang="css">
   .invite-alert {
     margin: 20px 0;
+  }
+
+  .names-list {
+    margin-bottom: -2px;
   }
 </style>
