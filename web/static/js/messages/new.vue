@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <div class="messages">
+    <div class="messages" id="message-scroll">
       <div class="col-sm-12" v-for="message in this.messages">
         <h5>{{message.email}}</h5>
         <p v-for="m in message.messages">{{m.text }}</p>
@@ -52,11 +52,19 @@ export default {
         } else {
           prev.messages.push(resp)
         }
+        this.scroll()
       })
+    },
+    scroll() {
+      let message = document.getElementById('message-scroll')
+      message.scrollTop = message.scrollHeight
     }
   },
   beforeMount() {
     this.init();
+  },
+  mounted() {
+    this.scroll()
   }
 }
 </script>
