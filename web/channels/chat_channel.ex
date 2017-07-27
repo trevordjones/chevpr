@@ -12,21 +12,24 @@ defmodule Chevpr.ChatChannel do
   end
 
   def handle_in("new_message", params, user, socket) do
-    new_params = Map.put(params, "user_id", user.id)
-    changeset = Message.changeset(%Message{}, new_params)
+    if Chevpr.MessageCan.can?(Integer.parse(params["channel_id"]), user.id) do
+      new_params = Map.put(params, "user_id", user.id)
+      changeset = Message.changeset(%Message{}, new_params)
 
-    case Repo.insert(changeset) do
-      {:ok, message} ->
-        broadcast! socket, "new_message", %{
-          text: message.text,
-          channel_id: message.channel_id,
-          user: Chevpr.UserView.render("user.json", %{user: user})
-        }
-        {:reply, :ok, socket}
+      case Repo.insert(changeset) do
+        {:ok, message} ->
+          broadcast! socket, "new_message", %{
+            text: message.text,
+            channel_id: message.channel_id,
+            user: Chevpr.UserView.render("user.json", %{user: user})
+          }
+          {:reply, :ok, socket}
 
-      {:error, changeset} ->
-        {:reply, {:error, %{errors: changeset}}, socket}
+        {:error, changeset} ->
+          {:reply, {:error, %{errors: changeset}}, socket}
+      end
+    else
+      {:reply, {:error, %{errors: "You are not authorized!"}}, socket}
     end
-
   end
 end

@@ -10,6 +10,11 @@ defmodule Chevpr.UserChannel do
 
   @required_fields ~w(user_id channel_id)a
 
+  def by_user_channel(channel_id, user_id) do
+    from u in __MODULE__, where: u.channel_id == ^channel_id and
+      u.user_id == ^user_id
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
