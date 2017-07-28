@@ -10,6 +10,7 @@ defmodule Chevpr.Repo.Migrations.CreateUserChannel do
     end
     create index(:user_channels, [:user_id])
     create index(:user_channels, [:channel_id])
+    create index(:user_channels, [:user_id, :channel_id], name: :user_channel_index)
 
   end
 end

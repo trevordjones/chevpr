@@ -21,6 +21,7 @@ defmodule Chevpr.UserChannel do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @required_fields)
-    |> validate_required(@required_files)
+    |> validate_required(@required_fields)
+    |> unique_constraint(:user_id, name: :user_channel_index)
   end
 end
