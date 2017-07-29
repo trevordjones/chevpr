@@ -13,7 +13,11 @@ defmodule Chevpr.ChatChannel do
 
   def handle_in("new_message", params, user, socket) do
     if Chevpr.MessageCan.can?(Integer.parse(params["channel_id"]), user.id) do
-      new_params = Map.put(params, "user_id", user.id)
+      {:ok, html, _response} = Earmark.as_html(params["text"])
+      new_params = Map.merge(params, %{
+        "user_id" => user.id,
+        "text" => html
+      })
       changeset = Message.changeset(%Message{}, new_params)
 
       case Repo.insert(changeset) do

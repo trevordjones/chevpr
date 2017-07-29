@@ -41,7 +41,8 @@ defmodule Chevpr.Mixfile do
      {:comeonin, "~> 2.5"},
      {:guardian, "~> 0.14"},
      {:arc, "~> 0.8.0"},
-     {:arc_ecto, "~> 0.7.0"}]
+     {:arc_ecto, "~> 0.7.0"},
+     {:earmark, "~> 1.2.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

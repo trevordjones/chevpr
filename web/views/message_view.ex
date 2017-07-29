@@ -10,6 +10,8 @@ defmodule Chevpr.MessageView do
     [Map.put(%{email: email}, :messages, [render_json(h)] ++ render_messages(h.user.email, t))] ++ group_messages(email, t)
   end
 
+  def group_messages([]), do: []
+
   def group_messages(email, [h | t]) do
     if email != h.user.email do
       group_messages([h | t])
@@ -18,9 +20,7 @@ defmodule Chevpr.MessageView do
     end
   end
 
-  def group_messages(email, []), do: []
-
-  def group_messages([]), do: []
+  def group_messages(_email, []), do: []
 
   def render_messages(email, [h | t]) do
     if email == h.user.email do
@@ -30,7 +30,7 @@ defmodule Chevpr.MessageView do
     end
   end
 
-  def render_messages(email, []), do: []
+  def render_messages(_email, []), do: []
 
   def render_json(message) do
     %{

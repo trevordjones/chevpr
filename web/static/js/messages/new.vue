@@ -3,7 +3,7 @@
     <div class="messages" id="message-scroll">
       <div class="col-sm-12" v-for="message in this.messages">
         <h5>{{message.email}}</h5>
-        <p v-for="m in message.messages">{{m.text }}</p>
+        <span v-for="m in message.messages" v-html="m.text"></span>
       </div>
     </div>
     <div class="message-input">

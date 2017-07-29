@@ -79,6 +79,9 @@ exports.config = {
 
   npm: {
     enabled: true,
+    styles: {
+      highlightjs: ['styles/default.css']
+    },
     globals: {
       $: 'jquery',
       jQuery: 'jquery',

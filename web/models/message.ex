@@ -25,5 +25,19 @@ defmodule Chevpr.Message do
     struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
+    |> strip_unsafe(params)
+  end
+
+  defp strip_unsafe(model, %{"body" => nil}) do
+    model
+  end
+
+  defp strip_unsafe(model, %{"body" => body}) do
+    {:safe, clean_body} = Phoenix.HTML.html_escape(body)
+    model |> put_change(:body, clean_body)
+  end
+
+  defp strip_unsafe(model, _) do
+    model
   end
 end
