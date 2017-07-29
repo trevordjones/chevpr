@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="message-input">
-      <input type="text" class="form-control" v-on:keyup.enter="postMessage" v-model="message">
+      <textarea id="textarea" rows="1" class="form-control" v-on:keydown.enter="postMessages($event)" v-model="message"></textarea>
     </div>
   </div>
 </template>
@@ -44,6 +44,15 @@ export default {
         .receive("error", e => console.log(e))
       this.message = ""
     },
+    postMessages(event) {
+      if (event.shiftKey) {
+        $("#textarea")[0].rows ++
+      } else {
+        event.preventDefault();
+        this.postMessage()
+        $("#textarea")[0].rows = 1
+      }
+    },
     receiveMessage() {
       this.channel.on("new_message", (resp) => {
         let prev = this.messages[this.messages.length - 1]
@@ -68,3 +77,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  #textarea {
+    resize: none;
+  }
+</style>

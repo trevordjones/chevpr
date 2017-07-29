@@ -13,7 +13,7 @@ defmodule Chevpr.ChatChannel do
 
   def handle_in("new_message", params, user, socket) do
     if Chevpr.MessageCan.can?(Integer.parse(params["channel_id"]), user.id) do
-      {:ok, html, _response} = Earmark.as_html(params["text"])
+      {:ok, html, _response} = Earmark.as_html(params["text"], %Earmark.Options{breaks: true})
       new_params = Map.merge(params, %{
         "user_id" => user.id,
         "text" => html
