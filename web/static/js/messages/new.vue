@@ -7,13 +7,18 @@
       </div>
     </div>
     <div class="message-input">
-      <textarea id="textarea" rows="1" class="form-control" v-on:keydown.enter="postMessages($event)" v-model="message"></textarea>
+      <textarea id="textarea" rows="1" class="pull-right form-control" v-on:keydown.enter="postMessages($event)" v-model="message"></textarea>
+      <div class="pull-left add-snippet" data-toggle="modal" data-target="#snippet">
+        <span class="fa fa-lg fa-plus snippet-plus"></span>
+      </div>
     </div>
+    <file></file>
   </div>
 </template>
 
 <script>
 import socket from '../socket'
+import File from './file'
 
 export default {
   data() {
@@ -28,6 +33,16 @@ export default {
     csrf: String,
     userToken: String,
     stringMessages: String
+  },
+  watch: {
+    messages: {
+      handler: function() {
+        setTimeout(() => {
+          this.scroll()
+        }, 100)
+      },
+      deep: true
+    }
   },
   methods: {
     init() {
@@ -61,7 +76,6 @@ export default {
         } else {
           prev.messages.push(resp)
         }
-        this.scroll()
       })
     },
     scroll() {
@@ -74,6 +88,9 @@ export default {
   },
   mounted() {
     this.scroll()
+  },
+  components: {
+    File
   }
 }
 </script>
@@ -81,5 +98,20 @@ export default {
 <style lang="scss">
   #textarea {
     resize: none;
+    width: 95%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .add-snippet {
+    border: 2px solid #b4bcc2;
+    width: 5%;
+    padding: 9px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  .snippet-plus {
+    margin-left: 5px;
   }
 </style>
