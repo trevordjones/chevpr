@@ -24,8 +24,9 @@ export default {
   data() {
     return {
       channel: socket.channel(`channels:${this.channelId}`),
-      message: "",
-      messages: JSON.parse(this.stringMessages)
+      message: '',
+      messages: JSON.parse(this.stringMessages),
+      language: ''
     }
   },
   props: {
@@ -54,7 +55,7 @@ export default {
       this.receiveMessage()
     },
     postMessage() {
-      let payload = {text: this.message, channel_id: this.channelId}
+      let payload = {text: this.message, language: this.language, channel_id: this.channelId}
       this.channel.push("new_message", payload)
         .receive("error", e => console.log(e))
       this.message = ""
@@ -88,6 +89,10 @@ export default {
   },
   mounted() {
     this.scroll()
+    this.$on('post-message', (msg) => {
+      this.message = msg
+      this.postMessage()
+    })
   },
   components: {
     File
