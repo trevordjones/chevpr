@@ -28,5 +28,3 @@ new Vue({
   el: '#vue-container',
   components: { NewChannel, NewMessage, Invite }
 });
-
-import './high'

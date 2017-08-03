@@ -19,6 +19,7 @@
 <script>
 import socket from '../socket'
 import File from './file'
+import hljs from "highlightjs"
 
 export default {
   data() {
@@ -39,6 +40,7 @@ export default {
     messages: {
       handler: function() {
         setTimeout(() => {
+          this.highlight()
           this.scroll()
         }, 100)
       },
@@ -82,6 +84,10 @@ export default {
     scroll() {
       let message = document.getElementById('message-scroll')
       message.scrollTop = message.scrollHeight
+    },
+    highlight() {
+      let codeBlocks = document.querySelectorAll('pre code')
+      hljs.highlightBlock(codeBlocks[codeBlocks.length - 1])
     }
   },
   beforeMount() {
@@ -93,6 +99,7 @@ export default {
       this.message = msg
       this.postMessage()
     })
+    hljs.initHighlightingOnLoad();
   },
   components: {
     File
